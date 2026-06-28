@@ -1,10 +1,20 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CatalogTypeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    return view('publicPage');
+});
+
+Route::get('/dashboard', function () {
     return view('pages.dashboard');
+});
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
 });
 
 Route::get('/catalogs', function () {
