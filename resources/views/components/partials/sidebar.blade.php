@@ -25,7 +25,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/catalogs" class="nav-link">
+            <a href="/catalog" class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
                 <p>Book Catalog</p>
             </a>
@@ -36,23 +36,24 @@
                 <p>Borrow & Return</p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="/holds" class="nav-link">
-                <i class="nav-icon fas fa-bookmark"></i>
-                <p>Holds & Reservations</p>
-            </a>
-        </li>
 
         <li class="nav-header">ADMINISTRATION</li>
+        
         <li class="nav-item">
             <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book-open"></i>
+                <i class="nav-icon fas fa-university"></i>
                 <p>
-                    Inventory
+                    Libraries
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
             <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="/catalog-types" class="nav-link">
+                        <i class="far fa-circle nav-icon text-primary"></i>
+                        <p>Catalog Types</p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="/admin/books/add" class="nav-link">
                         <i class="far fa-circle nav-icon text-success"></i>
@@ -60,13 +61,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/categories" class="nav-link">
+                    <a href="/admin/authors" class="nav-link">
                         <i class="far fa-circle nav-icon text-info"></i>
-                        <p>Categories & Authors</p>
+                        <p>Manage Authors</p>
                     </a>
                 </li>
             </ul>
         </li>
+
         <li class="nav-item">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
@@ -104,24 +106,12 @@
                 <p>Fines & Payments</p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="/reports/circulation" class="nav-link">
-                <i class="nav-icon fas fa-chart-line"></i>
-                <p>Circulation Stats</p>
-            </a>
-        </li>
 
         <li class="nav-header">SETTINGS</li>
         <li class="nav-item">
             <a href="/settings/general" class="nav-link">
                 <i class="nav-icon fas fa-cogs"></i>
-                <p>Library Settings</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="/profile" class="nav-link">
-                <i class="nav-icon fas fa-user-cog"></i>
-                <p>My Profile</p>
+                <p>System Settings</p>
             </a>
         </li>
 
