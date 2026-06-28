@@ -31,7 +31,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate(); // Para sa security laban sa session fixation
 
-            return redirect()->intended('/'); // Idiretso sa dashboard o sa page na tinatangka niyang buksan kanina
+            return redirect()->intended('/dashboard'); // Idiretso sa dashboard o sa page na tinatangka niyang buksan kanina
         }
 
         // 3. Kung mali ang password o email, ibalik sa login na may error message

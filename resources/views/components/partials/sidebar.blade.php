@@ -55,9 +55,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/books/add" class="nav-link">
+                    <a href="/categories" class="nav-link">
                         <i class="far fa-circle nav-icon text-success"></i>
-                        <p>Add New Book</p>
+                        <p>Categories</p>
                     </a>
                 </li>
                 <li class="nav-item">
