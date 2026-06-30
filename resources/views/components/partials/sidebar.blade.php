@@ -61,9 +61,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/authors" class="nav-link">
+                    <a href="/authors" class="nav-link">
                         <i class="far fa-circle nav-icon text-info"></i>
-                        <p>Manage Authors</p>
+                        <p>Authors</p>
                     </a>
                 </li>
             </ul>

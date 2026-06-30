@@ -1,0 +1,144 @@
+Below is a complete database schema blueprint for a Library Management System (LMS) you can directly use in Laravel migrations. This is designed for a real-world system (users, roles, cataloging, borrowing, fines, etc.).
+
+🏛️ 1. USERS TABLE (Authentication)
+Schema::create('users', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->string('email')->unique();
+    $table->string('password');
+    $table->string('role')->default('student'); // admin, librarian, student
+    $table->string('profile_image')->nullable();
+    $table->rememberToken();
+    $table->timestamps();
+});
+🎭 2. ROLES TABLE (Optional RBAC - better system)
+Schema::create('roles', function (Blueprint $table) {
+    $table->id();
+    $table->string('name'); // Admin, Librarian, Student
+    $table->timestamps();
+});
+👤 3. USER ROLES (Pivot if many roles per user)
+Schema::create('role_user', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+    $table->foreignId('role_id')->constrained()->cascadeOnDelete();
+});
+📚 4. CATEGORIES TABLE
+Schema::create('categories', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->text('description')->nullable();
+    $table->timestamps();
+});
+📖 5. BOOKS TABLE
+Schema::create('books', function (Blueprint $table) {
+    $table->id();
+    $table->string('title');
+    $table->string('isbn')->unique();
+    $table->string('author');
+    $table->string('publisher')->nullable();
+    $table->year('published_year')->nullable();
+    $table->integer('copies_total')->default(1);
+    $table->integer('copies_available')->default(1);
+    $table->text('description')->nullable();
+
+    $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+
+    $table->timestamps();
+});
+🧑‍💼 6. AUTHORS TABLE (optional normalization)
+Schema::create('authors', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->text('bio')->nullable();
+    $table->timestamps();
+});
+🔗 7. BOOK AUTHOR (many-to-many)
+Schema::create('author_book', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+    $table->foreignId('author_id')->constrained()->cascadeOnDelete();
+});
+📦 8. BORROWINGS TABLE (core LMS)
+Schema::create('borrowings', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+    $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+
+    $table->date('borrowed_at');
+    $table->date('due_date');
+    $table->date('returned_at')->nullable();
+
+    $table->enum('status', ['borrowed', 'returned', 'overdue'])->default('borrowed');
+
+    $table->timestamps();
+});
+💰 9. FINES TABLE
+Schema::create('fines', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('borrowing_id')->constrained()->cascadeOnDelete();
+
+    $table->decimal('amount', 8, 2);
+    $table->boolean('is_paid')->default(false);
+
+    $table->timestamps();
+});
+🧾 10. RESERVATIONS / HOLDS
+Schema::create('reservations', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+    $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+
+    $table->date('reserved_at');
+    $table->enum('status', ['pending', 'fulfilled', 'cancelled'])->default('pending');
+
+    $table->timestamps();
+});
+🏷️ 11. BOOK COPIES (optional advanced tracking)
+Schema::create('book_copies', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+
+    $table->string('barcode')->unique();
+    $table->enum('status', ['available', 'borrowed', 'lost', 'damaged'])->default('available');
+
+    $table->timestamps();
+});
+📊 12. AUDIT LOGS (recommended for ERMS/LMS)
+Schema::create('logs', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+
+    $table->string('action'); // borrow, return, login, delete
+    $table->text('description')->nullable();
+
+    $table->timestamps();
+});
+🧠 RELATIONSHIP SUMMARY
+Users → Borrow books
+Books → belong to Category
+Books ↔ Authors (many-to-many)
+Borrowings → track transactions
+Fines → linked to borrowings
+Reservations → queue system
+Book Copies → per physical book tracking
+⚡ OPTIONAL (If ERMS-level system mo)
+
+Pwede pa idagdag:
+
+🔐 Permissions table (RBAC like Spatie)
+🏢 Departments / Offices
+📁 Document archival (for your ERMS idea)
+📈 Reports table / analytics logs
+🧾 Issuance tracking per office
+🚀 If gusto mo next step
+
+Pwede kitang bigyan ng:
+
+✔ Full Laravel migrations (ready to run)
+✔ ERD diagram (visual database design)
+✔ Seeder data (sample books/users)
+✔ AdminLTE LMS dashboard design
+✔ Role-based system (Admin / Librarian / Student)
+
+Sabihin mo lang 👍
